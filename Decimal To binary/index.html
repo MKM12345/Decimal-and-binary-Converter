@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <title>How to Create Binary to Decimal Converter Using JavaScript</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+html,body {
+  height: 100%;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f1f1;
+}
+.binary_to_decimal h2 {
+  margin-bottom: 20px;
+  font-size: 30px;
+  color: #4766ff;
+}
+.binary_to_decimal {
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 0.2rem;
+}
+.field {
+  margin-bottom: 15px;
+}
+.field label {
+  position: relative;
+}
+.field label input {
+  font-size: 1rem;
+  color: #565656;
+  background: transparent;
+  padding: 1rem 1.2rem;
+  min-width: 100%;
+  border: 2px solid #565656;
+  border-radius: 0.2rem;
+}
+.field label input:focus {
+  border-color: #4766ff;
+}
+.field label p {
+  color: #4766ff;
+  font-size: 1rem;
+  user-select: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 0.8rem;
+  padding: 0 0.4rem;
+  background: #fff;
+  pointer-events: none;
+  transition: top 0.2s, font-size 0.2s, color 0.2s;
+}
+.field label input:focus + p, .field label input:not(:placeholder-shown) + p {
+  top: -20px;
+  font-size: 0.9rem;
+  color: #4766ff;
+}
+.field label input:not(:focus) + p {
+  color: #565656;
+}
+button#btn {
+  padding: 10px 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  background: #4766ff;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0.2rem;
+}
+
+div#error-msg {
+  color: red;
+  display: none;
+}
+</style>
+</head>
+<body>
+<div class="binary_to_decimal">
+    <div class="container">
+      <h2>Binary to Decimal Converter</h2>
+      <div class="form-row">
+        <form>
+          <div class="field">
+            <label>
+              <input type="text" name="bin" id="input" autocomplete="off" placeholder="Binary No.">
+              <p>Binary</p>
+            </label>
+          </div>
+          <div class="field">
+            <label>
+              <input type="text" name="dec" id="output" readonly="true" placeholder="Decimal No. will appear here">
+              <p>Decimal</p>
+            </label>
+          </div>
+          <div class="field btn-field">
+            <button type="button" id="btn">Convert</button>
+          </div>
+        </form>
+        <div id="error-msg">
+          <p>You should enter a binary number composed by 0 and 1!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const input = document.querySelector("#input");
+const output = document.querySelector("#output");
+const btn = document.querySelector("#btn");
+const error = document.querySelector("#error-msg");
+
+
+function Bin2Dec() {
+    const regEx = /^[0-1]+$/;
+
+    if(input.value.match(regEx)) {
+        const binArr = input.value.split('').reverse();
+        let decNo = 0;
+
+        binArr.forEach((item, index) => item === '1' ? decNo += Math.pow(2, index) : void 0);
+
+        output.value = decNo.toString();
+        output.style.cursor = 'text';
+    }else {
+        error.style.display = 'block';
+    }
+}
+
+
+btn.addEventListener('click', () => {
+    error.style.display = 'none';
+    Bin2Dec();
+})
+</script>
+<br>
+<a href="Test.html">Click here for Decimal-Binary Converter!</a>
+</body>
+</html>
